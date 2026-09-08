@@ -1047,6 +1047,30 @@
   setInterval(updateClock, 250);
   track("page_view");
 
+  // #region agent log
+  (function debugFavicon() {
+    const links = Array.from(document.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]')).map((el) => ({
+      rel: el.rel,
+      hrefAttr: el.getAttribute("href"),
+      resolved: el.href,
+      type: el.getAttribute("type") || ""
+    }));
+    fetch("http://127.0.0.1:7555/ingest/a93d14f2-3377-4f24-958a-6650749bd76b", { method: "POST", headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "b70c4e" }, body: JSON.stringify({ sessionId: "b70c4e", hypothesisId: "B", location: "js/app.js:debugFavicon", message: "icon link tags", data: { protocol: location.protocol, href: location.href, baseURI: document.baseURI, links }, timestamp: Date.now() }) }).catch(() => {});
+    links.forEach((link) => {
+      fetch(link.resolved, { method: "GET", cache: "no-store" }).then((res) => {
+        fetch("http://127.0.0.1:7555/ingest/a93d14f2-3377-4f24-958a-6650749bd76b", { method: "POST", headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "b70c4e" }, body: JSON.stringify({ sessionId: "b70c4e", hypothesisId: "A", location: "js/app.js:debugFavicon", message: "icon fetch result", data: { hrefAttr: link.hrefAttr, resolved: link.resolved, status: res.status, ok: res.ok, contentType: res.headers.get("content-type") }, timestamp: Date.now() }) }).catch(() => {});
+      }).catch((err) => {
+        fetch("http://127.0.0.1:7555/ingest/a93d14f2-3377-4f24-958a-6650749bd76b", { method: "POST", headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "b70c4e" }, body: JSON.stringify({ sessionId: "b70c4e", hypothesisId: "B", location: "js/app.js:debugFavicon", message: "icon fetch failed", data: { hrefAttr: link.hrefAttr, resolved: link.resolved, error: String(err) }, timestamp: Date.now() }) }).catch(() => {});
+      });
+    });
+    fetch("images/adey-abeba.png", { method: "GET", cache: "no-store" }).then((res) => {
+      fetch("http://127.0.0.1:7555/ingest/a93d14f2-3377-4f24-958a-6650749bd76b", { method: "POST", headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "b70c4e" }, body: JSON.stringify({ sessionId: "b70c4e", hypothesisId: "E", location: "js/app.js:debugFavicon", message: "adey image fetch", data: { status: res.status, ok: res.ok }, timestamp: Date.now() }) }).catch(() => {});
+    }).catch((err) => {
+      fetch("http://127.0.0.1:7555/ingest/a93d14f2-3377-4f24-958a-6650749bd76b", { method: "POST", headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "b70c4e" }, body: JSON.stringify({ sessionId: "b70c4e", hypothesisId: "E", location: "js/app.js:debugFavicon", message: "adey image fetch failed", data: { error: String(err) }, timestamp: Date.now() }) }).catch(() => {});
+    });
+  })();
+  // #endregion
+
   /* Self-check in console for the required dates */
   const c1 = gregorianToEthiopic(2026, 9, 11);
   const c2 = gregorianToEthiopic(2026, 1, 1);
