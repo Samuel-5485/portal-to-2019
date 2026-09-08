@@ -860,74 +860,121 @@
     }
 
     const veil = ctx.createLinearGradient(0, 0, 0, H);
-    veil.addColorStop(0, "rgba(7, 18, 12, 0.55)");
-    veil.addColorStop(0.38, "rgba(22, 53, 31, 0.42)");
-    veil.addColorStop(0.72, "rgba(18, 40, 22, 0.55)");
-    veil.addColorStop(1, "rgba(10, 24, 14, 0.72)");
+    veil.addColorStop(0, "rgba(7, 18, 12, 0.58)");
+    veil.addColorStop(0.4, "rgba(22, 53, 31, 0.4)");
+    veil.addColorStop(0.72, "rgba(18, 40, 22, 0.5)");
+    veil.addColorStop(1, "rgba(10, 24, 14, 0.35)");
     ctx.fillStyle = veil;
     ctx.fillRect(0, 0, W, H);
 
-    ctx.strokeStyle = "rgba(255, 213, 106, 0.9)";
+    const ringCx = W / 2;
+    const ringCy = 318;
+    const outerR = 156;
+    const titleY = 78;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+    ctx.shadowColor = "rgba(0,0,0,0.45)";
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 2;
+    ctx.fillStyle = "#fff6d8";
+    ctx.font = "700 36px 'Noto Sans Ethiopic', sans-serif";
+    ctx.fillText("እንቁጣጣሽ", ringCx, titleY);
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+
+    // #region agent log
+    fetch("http://127.0.0.1:7555/ingest/a93d14f2-3377-4f24-958a-6650749bd76b", { method: "POST", headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "b70c4e" }, body: JSON.stringify({ sessionId: "b70c4e", hypothesisId: "CARD", location: "js/app.js:paintShareCard", message: "card layout", data: { titleY, ringTop: ringCy - outerR, ringCy, gap: ringCy - outerR - titleY, who, love: isLoveWho() }, timestamp: Date.now() }) }).catch(() => {});
+    // #endregion
+
+    ctx.strokeStyle = "rgba(255, 213, 106, 0.95)";
     ctx.lineWidth = 7;
     ctx.beginPath();
-    ctx.arc(W / 2, 268, 168, 0, Math.PI * 2);
+    ctx.arc(ringCx, ringCy, outerR, 0, Math.PI * 2);
     ctx.stroke();
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.arc(W / 2, 268, 132, 0, Math.PI * 2);
+    ctx.arc(ringCx, ringCy, 122, 0, Math.PI * 2);
     ctx.stroke();
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.arc(W / 2, 268, 104, 0, Math.PI * 2);
+    ctx.arc(ringCx, ringCy, 94, 0, Math.PI * 2);
     ctx.stroke();
 
-    ctx.textAlign = "center";
     ctx.fillStyle = "#ffe9a8";
-    ctx.font = "600 28px 'Noto Sans Ethiopic', sans-serif";
-    ctx.fillText("እንቁጣጣሽ", W / 2, 118);
-    ctx.font = "700 148px 'Cormorant Garamond', serif";
-    ctx.fillText("2019", W / 2, 328);
+    ctx.font = "700 132px 'Cormorant Garamond', serif";
+    ctx.fillText("2019", ringCx, ringCy + 46);
 
     const from = (fromInput.value || "").trim();
     const to = (toInput.value || "").trim();
-    ctx.fillStyle = "#fff8e7";
-    ctx.font = "600 36px 'Cormorant Garamond', 'Noto Sans Ethiopic', serif";
-    if (from) ctx.fillText(`ከ ${from}`, W / 2, 470);
-    if (to) ctx.fillText(`ለ ${to}`, W / 2, from ? 518 : 470);
+    ctx.shadowColor = "rgba(0,0,0,0.45)";
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 2;
+    ctx.fillStyle = "#fff6d8";
+    ctx.font = "700 48px 'Cormorant Garamond', 'Noto Sans Ethiopic', serif";
+    let nameY = 530;
+    if (from) {
+      ctx.fillText(`ከ ${from}`, ringCx, nameY);
+      nameY += 58;
+    }
+    if (to) {
+      ctx.fillText(`ለ ${to}`, ringCx, nameY);
+      nameY += 56;
+    }
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
 
-    ctx.fillStyle = "rgba(255, 213, 106, 0.95)";
-    ctx.font = "500 22px Outfit, 'Noto Sans Ethiopic', sans-serif";
-    const relY = from && to ? 562 : from || to ? 518 : 470;
-    ctx.fillText(I18N[lang].rel[who], W / 2, relY);
+    const relLabel = I18N[lang].rel[who];
+    ctx.font = "700 42px Outfit, 'Noto Sans Ethiopic', sans-serif";
+    const relW = Math.max(220, ctx.measureText(relLabel).width + 56);
+    const relH = 62;
+    const relBandY = nameY - 8;
+    ctx.fillStyle = "rgba(12, 28, 16, 0.9)";
+    const rx = ringCx - relW / 2;
+    const rr = 14;
+    ctx.beginPath();
+    ctx.moveTo(rx + rr, relBandY);
+    ctx.arcTo(rx + relW, relBandY, rx + relW, relBandY + relH, rr);
+    ctx.arcTo(rx + relW, relBandY + relH, rx, relBandY + relH, rr);
+    ctx.arcTo(rx, relBandY + relH, rx, relBandY, rr);
+    ctx.arcTo(rx, relBandY, rx + relW, relBandY, rr);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#f3e2a8";
+    ctx.fillText(relLabel, ringCx, relBandY + 43);
 
     ctx.strokeStyle = "rgba(255, 213, 106, 0.45)";
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(180, relY + 28);
-    ctx.lineTo(900, relY + 28);
+    ctx.moveTo(180, relBandY + relH + 22);
+    ctx.lineTo(900, relBandY + relH + 22);
     ctx.stroke();
 
     const bless = currentBlessing();
-    ctx.fillStyle = "#fff8e7";
+    ctx.shadowColor = "rgba(0,0,0,0.45)";
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetY = 2;
+    ctx.fillStyle = "#fff6d8";
     ctx.font = "700 48px 'Noto Sans Ethiopic', sans-serif";
-    const amLines = wrapText(ctx, bless.am, W / 2, relY + 100, 900, 62);
-    ctx.fillStyle = "rgba(255, 233, 168, 0.92)";
+    const amLines = wrapText(ctx, bless.am, ringCx, relBandY + relH + 88, 900, 62);
+    ctx.fillStyle = "#fff6d8";
     ctx.font = "italic 600 32px 'Cormorant Garamond', serif";
-    const enStart = relY + 100 + amLines * 62 + 18;
-    wrapText(ctx, bless.en, W / 2, enStart, 900, 42);
+    wrapText(ctx, bless.en, ringCx, relBandY + relH + 88 + amLines * 62 + 16, 900, 42);
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
 
     if (isLoveWho()) {
-      ctx.fillStyle = "#ffe38a";
-      ctx.font = "600 34px 'Noto Sans Ethiopic', sans-serif";
-      ctx.fillText("2019ን አብረን እንግባ", W / 2, 1188);
-      ctx.fillStyle = "#efe2c2";
-      ctx.font = "italic 500 26px 'Cormorant Garamond', serif";
-      ctx.fillText("This year we walk in together", W / 2, 1230);
+      const bandH = 176;
+      ctx.fillStyle = "rgba(18, 40, 22, 0.92)";
+      ctx.fillRect(0, H - bandH, W, bandH);
+      ctx.fillStyle = "#fff6d8";
+      ctx.font = "700 40px 'Noto Sans Ethiopic', sans-serif";
+      ctx.fillText("2019ን አብረን እንግባ", ringCx, H - 96);
+      ctx.font = "700 28px 'Cormorant Garamond', serif";
+      ctx.fillText("This year we walk in together", ringCx, H - 48);
     }
-
-    [[140, 1240, 36], [940, 1260, 42], [200, 1300, 28], [880, 1310, 32]].forEach(([x, y, r]) => {
-      drawDaisy(ctx, x, y, r);
-    });
 
     return canvas;
   }
