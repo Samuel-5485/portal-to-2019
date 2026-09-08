@@ -296,6 +296,44 @@
   let who = WHO.some((w) => w.id === localStorage.getItem(LS.who)) ? localStorage.getItem(LS.who) : "family";
   let ending = ["hu", "sh", "pl"].includes(localStorage.getItem(LS.end)) ? localStorage.getItem(LS.end) : "pl";
   let blessIndex = Math.min(5, Math.max(0, Number(localStorage.getItem(LS.bless) || 5)));
+
+  // Counts site visits, button taps, and return traffic from UTM.
+  // Screenshots forwarded on Instagram or Telegram are invisible to us.
+  function track(name) {
+    try {
+      if (typeof window.va === "function") window.va("event", { name });
+    } catch (e) { /* ignore */ }
+  }
+
+  function canonicalUrl() {
+    if (location.protocol === "file:") return "";
+    const u = new URL(location.href);
+    u.hash = "";
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((k) => u.searchParams.delete(k));
+    return u.toString();
+  }
+
+  function shareUrl(source) {
+    const base = canonicalUrl();
+    if (!base) return "";
+    const u = new URL(base);
+    u.searchParams.set("utm_source", source);
+    u.searchParams.set("utm_medium", "share");
+    u.searchParams.set("utm_campaign", "enkutatash2019");
+    return u.toString();
+  }
+
+  function setSocialTags() {
+    const abs = canonicalUrl();
+    if (!abs) return;
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    const ogImg = document.querySelector('meta[property="og:image"]');
+    const twImg = document.querySelector('meta[name="twitter:image"]');
+    if (ogUrl) ogUrl.setAttribute("content", abs);
+    const img = new URL("images/adey-abeba.png", abs).toString();
+    if (ogImg && !/^https?:/i.test(ogImg.getAttribute("content") || "")) ogImg.setAttribute("content", img);
+    if (twImg && !/^https?:/i.test(twImg.getAttribute("content") || "")) twImg.setAttribute("content", img);
+  }
   let adeyImg = $("flowerAsset") || new Image();
   if (adeyImg && adeyImg.src) {
     const applyFlower = () => {
@@ -409,14 +447,14 @@
     return LOVE_WHO.has(who);
   }
 
-  function composeShare() {
+  function composeShare(source) {
     const from = (fromInput.value || "").trim();
     const to = (toInput.value || "").trim();
     let line = "እንቁጣጣሽ መልካም አዲስ ዓመት 🌼";
     if (from && to) line = `ከ${from} ለ${to} — እንቁጣጣሽ መልካም አዲስ ዓመት 🌼`;
     else if (from) line = `ከ${from} — እንቁጣጣሽ መልካም አዲስ ዓመት 🌼`;
     else if (to) line = `ለ${to} — እንቁጣጣሽ መልካም አዲስ ዓመት 🌼`;
-    const url = location.protocol === "file:" ? "" : location.href.split("#")[0];
+    const url = source ? shareUrl(source) : canonicalUrl();
     return { line, url, full: url ? `${line}\n${url}` : line };
   }
 
@@ -465,6 +503,7 @@
         blessIndex = i;
         localStorage.setItem(LS.bless, String(i));
         renderBlessings();
+        track("blessing_selected");
       });
       blessGrid.appendChild(btn);
     });
@@ -894,6 +933,7 @@
   }
 
   async function downloadCard() {
+    track("card_download");
     const canvas = paintShareCard();
     const a = document.createElement("a");
     a.download = "enkutatash-2019.png";
@@ -906,7 +946,8 @@
   }
 
   function shareTelegram() {
-    const { line, url } = composeShare();
+    track("share_telegram");
+    const { line, url } = composeShare("telegram");
     const u = new URL("https://t.me/share/url");
     u.searchParams.set("url", url || line);
     u.searchParams.set("text", line);
@@ -914,14 +955,16 @@
   }
 
   function shareX() {
-    const { full } = composeShare();
+    track("share_x");
+    const { line, url } = composeShare("x");
     const u = new URL("https://twitter.com/intent/tweet");
-    u.searchParams.set("text", full);
+    u.searchParams.set("text", url ? `${line}\n${url}` : line);
     openShare(u.toString());
   }
 
   async function copyLine() {
-    const { full } = composeShare();
+    track("share_copy");
+    const { full } = composeShare("copy");
     try {
       await navigator.clipboard.writeText(full);
     } catch (e) {
@@ -947,6 +990,7 @@
     applyI18n();
     updateClock();
     syncSound();
+    track("ethio_toggle");
   });
 
   soundBtn.addEventListener("click", () => {
@@ -958,6 +1002,7 @@
   previewBtn.addEventListener("click", () => {
     startCrossing(true);
     updateClock();
+    track("preview_crossing");
   });
 
   fromInput.value = localStorage.getItem(LS.name) || "";
@@ -994,11 +1039,13 @@
 
   applyEthio();
   applyI18n();
+  setSocialTags();
   resizeFx();
   seedRain();
   tickFx();
   updateClock();
   setInterval(updateClock, 250);
+  track("page_view");
 
   /* Self-check in console for the required dates */
   const c1 = gregorianToEthiopic(2026, 9, 11);
