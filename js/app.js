@@ -58,16 +58,56 @@
       seconds: "seconds",
       eatNote: "to Meskerem 1 · Friday, Africa/Addis_Ababa midnight",
       preview: "Preview the crossing",
-      bornTitle: "You were born when the year was younger",
-      bornHint: "A name, a Gregorian birthday. The portal answers in two calendars.",
+      bornTitle: "The other calendar, quietly",
+      bornHint: "A small converter. It does not make the card.",
       nameLabel: "Name",
-      namePh: "Your name",
+      namePh: "Name",
       bdayLabel: "Gregorian birthday",
-      shareTitle: "A line for the other calendar",
+      shareTitle: "Send Enkutatash",
+      shareHint: "The gold is for someone. Choose who, then a blessing.",
+      whoLabel: "For",
+      fromLabel: "From",
+      toLabel: "To",
+      endingLabel: "Amharic ending",
       download: "Download card",
-      share: "Share",
-      copy: "Copy line",
+      telegram: "Telegram",
+      twitter: "X",
+      copy: "Copy",
       copied: "Copied",
+      fromPh: "Your name",
+      who: {
+        family: "Family",
+        mother: "Mother",
+        father: "Father",
+        sibling: "Sibling",
+        friend: "Friend",
+        girlfriend: "Girlfriend",
+        boyfriend: "Boyfriend",
+        couple: "Couple",
+        everyone: "Everyone"
+      },
+      toPh: {
+        family: "our family",
+        mother: "Mom",
+        father: "Dad",
+        sibling: "their name",
+        friend: "their name",
+        girlfriend: "her name",
+        boyfriend: "his name",
+        couple: "us",
+        everyone: "everyone"
+      },
+      rel: {
+        family: "Family",
+        mother: "Mother",
+        father: "Father",
+        sibling: "Sibling",
+        friend: "Friend",
+        girlfriend: "Girlfriend",
+        boyfriend: "Boyfriend",
+        couple: "Couple",
+        everyone: "Everyone"
+      },
       footer1: "The calendars differ because Ethiopia counts from the Annunciation, not from a later European reckoning of the Incarnation.",
       footer2: "Adey Abeba is the new-year flower — yellow as the first light on the hills."
     },
@@ -86,34 +126,166 @@
       seconds: "ሰከንዶች",
       eatNote: "እስከ መስከረም 1 · አርብ፣ እኩለ ሌሊት አዲስ አበባ",
       preview: "የመሻገሪያውን ቅድመ እይታ",
-      bornTitle: "ዓመቱ ገና ሲያንስ ተወለድህ",
-      bornHint: "ስም እና የግሪጎሪያን ልደት። በሩ በሁለት ቀን መቁጠሪያ ይመልሳል።",
+      bornTitle: "ሌላው ቀን መቁጠሪያ፣ በጸጥታ",
+      bornHint: "ትንሽ መቀየሪያ። ካርዱን አይሰራም።",
       nameLabel: "ስም",
-      namePh: "ስምህ",
+      namePh: "ስም",
       bdayLabel: "የግሪጎሪያን ልደት",
-      shareTitle: "ለሌላው ቀን መቁጠሪያ አንድ መስመር",
+      shareTitle: "እንቁጣጣሽ ላክ",
+      shareHint: "ወርቁ ለአንድ ሰው ነው። ማንን እንደሆነ ምረጥ፣ ከዚያ በረከት።",
+      whoLabel: "ለ",
+      fromLabel: "ከ",
+      toLabel: "ለ",
+      endingLabel: "የአማርኛ መጨረሻ",
       download: "ካርድ አውርድ",
-      share: "አጋራ",
-      copy: "መስመሩን ቅዳ",
+      telegram: "ቴሌግራም",
+      twitter: "X",
+      copy: "ቅዳ",
       copied: "ተቀድቷል",
+      fromPh: "ስምህ",
+      who: {
+        family: "ቤተሰብ",
+        mother: "እናት",
+        father: "አባት",
+        sibling: "ወንድም/እህት",
+        friend: "ጓደኛ",
+        girlfriend: "ፍቅረኛዬ",
+        boyfriend: "ወዳጄ",
+        couple: "እኛ",
+        everyone: "ሁሉም"
+      },
+      toPh: {
+        family: "እኛ",
+        mother: "እናቴ",
+        father: "አባቴ",
+        sibling: "ስማቸው",
+        friend: "ስማቸው",
+        girlfriend: "ስሟ",
+        boyfriend: "ስሙ",
+        couple: "እኛ",
+        everyone: "ሁላችሁ"
+      },
+      rel: {
+        family: "ቤተሰብ",
+        mother: "እናት",
+        father: "አባት",
+        sibling: "ወንድም/እህት",
+        friend: "ጓደኛ",
+        girlfriend: "ፍቅረኛ",
+        boyfriend: "ወዳጅ",
+        couple: "ጥንድ",
+        everyone: "ሁሉም"
+      },
       footer1: "ቀን መቁጠሪያዎቹ የሚለያዩት ኢትዮጵያ ከብስራተ ገብርኤል ስትቆጥር፣ በኋላ የመጣው አውሮፓዊ የትስብእት ሒሳብ ሳይሆን ነው።",
       footer2: "አደይ አበባ የአዲስ ዓመት አበባ ነው — በተራሮች ላይ እንደ መጀመሪያ ብርሃን ቢጫ።"
     }
   };
 
-  const LS = { ethio: "portal2019-ethio", lang: "portal2019-lang", name: "portal2019-name" };
+  const LS = {
+    ethio: "portal2019-ethio",
+    lang: "portal2019-lang",
+    name: "portal2019-name",
+    to: "portal2019-to",
+    who: "portal2019-who",
+    end: "portal2019-end",
+    bless: "portal2019-bless"
+  };
+
+  const WHO = [
+    { id: "family", end: "pl" },
+    { id: "mother", end: "sh" },
+    { id: "father", end: "hu" },
+    { id: "sibling", end: "hu" },
+    { id: "friend", end: "hu" },
+    { id: "girlfriend", end: "sh" },
+    { id: "boyfriend", end: "hu" },
+    { id: "couple", end: "pl" },
+    { id: "everyone", end: "pl" }
+  ];
+  const LOVE_WHO = new Set(["girlfriend", "boyfriend", "couple"]);
+  const BLESSINGS = [
+    {
+      am: { hu: "እንኳን አደረሰህ", sh: "እንኳን አደረሰሽ", pl: "እንኳን አደረሳችሁ" },
+      en: { hu: "You lived to see this day", sh: "You lived to see this day", pl: "You lived to see this day" }
+    },
+    {
+      am: {
+        hu: "አዲሱ ዓመት የሰላም፣ የፍቅርና የብልጽግና ዓመት ይሁንልህ",
+        sh: "አዲሱ ዓመት የሰላም፣ የፍቅርና የብልጽግና ዓመት ይሁንልሽ",
+        pl: "አዲሱ ዓመት የሰላም፣ የፍቅርና የብልጽግና ዓመት ይሁንላችሁ"
+      },
+      en: {
+        hu: "May the new year be peace, love, and prosperity",
+        sh: "May the new year be peace, love, and prosperity",
+        pl: "May the new year be peace, love, and prosperity"
+      }
+    },
+    {
+      am: {
+        hu: "እግዚአብሔር ዓመቱን የሰላምና የጤና ዓመት ያድርግልህ",
+        sh: "እግዚአብሔር ዓመቱን የሰላምና የጤና ዓመት ያድርግልሽ",
+        pl: "እግዚአብሔር ዓመቱን የሰላምና የጤና ዓመት ያድርግላችሁ"
+      },
+      en: {
+        hu: "May God make the year one of peace and health",
+        sh: "May God make the year one of peace and health",
+        pl: "May God make the year one of peace and health"
+      }
+    },
+    {
+      am: {
+        hu: "በዚህ አዲስ ዓመት ክፉ ነገር አይንካህ",
+        sh: "በዚህ አዲስ ዓመት ክፉ ነገር አይንካሽ",
+        pl: "በዚህ አዲስ ዓመት ክፉ ነገር አይንካችሁ"
+      },
+      en: {
+        hu: "May no evil touch you",
+        sh: "May no evil touch you",
+        pl: "May no evil touch you"
+      }
+    },
+    {
+      am: {
+        hu: "የመግባትና የመውጣት ዓመት ይሁንልህ",
+        sh: "የመግባትና የመውጣት ዓመት ይሁንልሽ",
+        pl: "የመግባትና የመውጣት ዓመት ይሁንላችሁ"
+      },
+      en: {
+        hu: "A year of safely coming in and going out",
+        sh: "A year of safely coming in and going out",
+        pl: "A year of safely coming in and going out"
+      }
+    },
+    {
+      am: {
+        hu: "እንቁጣጣሽ መልካም አዲስ ዓመት ይሁንልህ",
+        sh: "እንቁጣጣሽ መልካም አዲስ ዓመት ይሁንልሽ",
+        pl: "እንቁጣጣሽ መልካም አዲስ ዓመት ይሁንላችሁ"
+      },
+      en: {
+        hu: "Happy Enkutatash, a blessed new year",
+        sh: "Happy Enkutatash, a blessed new year",
+        pl: "Happy Enkutatash, a blessed new year"
+      }
+    }
+  ];
 
   const $ = (id) => document.getElementById(id);
   const yearEl = $("yearEl");
   const dateLine = $("dateLine");
   const shareLine = $("shareLine");
   const bornPoem = $("bornPoem");
-  const nameInput = $("nameInput");
+  const fromInput = $("fromInput");
+  const toInput = $("toInput");
+  const bdayName = $("bdayName");
   const bdayInput = $("bdayInput");
   const langBtn = $("langBtn");
   const soundBtn = $("soundBtn");
   const ethioBtn = $("ethioBtn");
   const previewBtn = $("previewBtn");
+  const whoRow = $("whoRow");
+  const blessGrid = $("blessGrid");
+  const togetherLine = $("togetherLine");
 
   let lang = localStorage.getItem(LS.lang) === "am" ? "am" : "en";
   let ethio = localStorage.getItem(LS.ethio) === "1";
@@ -121,6 +293,9 @@
   let crossed = false;
   let soundOn = false;
   let audio = null;
+  let who = WHO.some((w) => w.id === localStorage.getItem(LS.who)) ? localStorage.getItem(LS.who) : "family";
+  let ending = ["hu", "sh", "pl"].includes(localStorage.getItem(LS.end)) ? localStorage.getItem(LS.end) : "pl";
+  let blessIndex = Math.min(5, Math.max(0, Number(localStorage.getItem(LS.bless) || 5)));
   let adeyImg = $("flowerAsset") || new Image();
   if (adeyImg && adeyImg.src) {
     const applyFlower = () => {
@@ -215,20 +390,84 @@
     soundBtn.textContent = soundOn ? t("soundOn") : t("soundOff");
     ethioBtn.textContent = ethio ? t("ethioOn") : t("ethioOff");
     ethioBtn.setAttribute("aria-pressed", ethio ? "true" : "false");
+    fromInput.placeholder = t("fromPh");
+    renderWho();
+    renderBlessings();
+    updateSharePreview();
   }
 
   function applyEthio() {
     document.body.classList.toggle("ethio", ethio);
   }
 
-  function shareText(year, name) {
-    const who = (name || "").trim();
-    if (lang === "am") {
-      if (who) return `${who} አሁን በ ${year} ነው፤ አንተ ግን በ 2026 ተጣብቀሃል 🕰️🌼`;
-      return `እኔ አሁን በ ${year} ነኝ አንተ ግን በ 2026 ተጣብቀሃል 🕰️🌼`;
-    }
-    if (who) return `${who} is currently in ${year} while you're stuck in 2026 🕰️🌼`;
-    return `I'm currently in ${year} while you're stuck in 2026 🕰️🌼`;
+  function currentBlessing() {
+    const b = BLESSINGS[blessIndex] || BLESSINGS[5];
+    return { am: b.am[ending], en: b.en[ending] };
+  }
+
+  function isLoveWho() {
+    return LOVE_WHO.has(who);
+  }
+
+  function composeShare() {
+    const from = (fromInput.value || "").trim();
+    const to = (toInput.value || "").trim();
+    let line = "እንቁጣጣሽ መልካም አዲስ ዓመት 🌼";
+    if (from && to) line = `ከ${from} ለ${to} — እንቁጣጣሽ መልካም አዲስ ዓመት 🌼`;
+    else if (from) line = `ከ${from} — እንቁጣጣሽ መልካም አዲስ ዓመት 🌼`;
+    else if (to) line = `ለ${to} — እንቁጣጣሽ መልካም አዲስ ዓመት 🌼`;
+    const url = location.protocol === "file:" ? "" : location.href.split("#")[0];
+    return { line, url, full: url ? `${line}\n${url}` : line };
+  }
+
+  function updateSharePreview() {
+    const { line } = composeShare();
+    shareLine.textContent = line;
+    toInput.placeholder = I18N[lang].toPh[who] || "";
+    togetherLine.hidden = !isLoveWho();
+    document.querySelectorAll("#endingRow [data-end]").forEach((btn) => {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-end") === ending ? "true" : "false");
+    });
+  }
+
+  function renderWho() {
+    whoRow.innerHTML = "";
+    WHO.forEach((item) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip";
+      btn.setAttribute("data-who", item.id);
+      btn.setAttribute("aria-pressed", item.id === who ? "true" : "false");
+      btn.textContent = I18N[lang].who[item.id];
+      btn.addEventListener("click", () => {
+        who = item.id;
+        ending = item.end;
+        localStorage.setItem(LS.who, who);
+        localStorage.setItem(LS.end, ending);
+        renderWho();
+        renderBlessings();
+        updateSharePreview();
+      });
+      whoRow.appendChild(btn);
+    });
+  }
+
+  function renderBlessings() {
+    blessGrid.innerHTML = "";
+    BLESSINGS.forEach((b, i) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "bless-card";
+      btn.setAttribute("role", "option");
+      btn.setAttribute("aria-pressed", i === blessIndex ? "true" : "false");
+      btn.innerHTML = `<strong>${b.am[ending]}</strong><span>${b.en[ending]}</span>`;
+      btn.addEventListener("click", () => {
+        blessIndex = i;
+        localStorage.setItem(LS.bless, String(i));
+        renderBlessings();
+      });
+      blessGrid.appendChild(btn);
+    });
   }
 
   function updateClock() {
@@ -275,7 +514,6 @@
       $("cdS").textContent = String(s % 60);
     }
 
-    shareLine.textContent = shareText(year, nameInput.value);
     renderBorn();
   }
 
@@ -295,7 +533,7 @@
     const leap = isEthLeap(birth.year);
     const rareSixth = birth.month === 13 && birth.day === 6;
     const poem = lang === "am" ? POEMS_AM[birth.month - 1] : POEMS_EN[birth.month - 1];
-    const name = (nameInput.value || "").trim();
+    const name = (bdayName.value || "").trim();
     const who = name || (lang === "am" ? "አንተ" : "You");
     const enDate = formatEth(birth, "en");
     const amDate = formatEth(birth, "am");
@@ -525,19 +763,47 @@
   }
 
   function wrapText(ctx, text, x, y, maxW, lineH) {
-    const words = text.split(" ");
-    let line = "";
+    const words = String(text || "").split(/\s+/).filter(Boolean);
     const lines = [];
+    let line = "";
+    const pushChars = (token) => {
+      let chunk = "";
+      for (const ch of token) {
+        const test = chunk + ch;
+        if (ctx.measureText(test).width > maxW && chunk) {
+          lines.push(chunk);
+          chunk = ch;
+        } else chunk = test;
+      }
+      return chunk;
+    };
     words.forEach((w) => {
       const test = line ? `${line} ${w}` : w;
       if (ctx.measureText(test).width > maxW) {
-        lines.push(line);
-        line = w;
+        if (line) lines.push(line);
+        line = ctx.measureText(w).width > maxW ? pushChars(w) : w;
       } else line = test;
     });
     if (line) lines.push(line);
     lines.forEach((ln, i) => ctx.fillText(ln, x, y + i * lineH));
     return lines.length;
+  }
+
+  function coverImage(ctx, img, x, y, w, h) {
+    const ir = img.naturalWidth / img.naturalHeight;
+    const r = w / h;
+    let dw = w;
+    let dh = h;
+    let dx = x;
+    let dy = y;
+    if (ir > r) {
+      dw = h * ir;
+      dx = x - (dw - w) / 2;
+    } else {
+      dh = w / ir;
+      dy = y - (dh - h) / 2;
+    }
+    ctx.drawImage(img, dx, dy, dw, dh);
   }
 
   function paintShareCard() {
@@ -547,87 +813,82 @@
     const H = 1350;
     ctx.clearRect(0, 0, W, H);
 
-    const sky = ctx.createLinearGradient(0, 0, 0, H);
-    sky.addColorStop(0, "#7ec8e0");
-    sky.addColorStop(0.38, "#f3d98a");
-    sky.addColorStop(0.7, "#4a8c52");
-    sky.addColorStop(1, "#16351f");
-    ctx.fillStyle = sky;
+    if (adeyImg.complete && adeyImg.naturalWidth) {
+      coverImage(ctx, adeyImg, 0, 0, W, H);
+    } else {
+      ctx.fillStyle = "#1b4a28";
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    const veil = ctx.createLinearGradient(0, 0, 0, H);
+    veil.addColorStop(0, "rgba(7, 18, 12, 0.55)");
+    veil.addColorStop(0.38, "rgba(22, 53, 31, 0.42)");
+    veil.addColorStop(0.72, "rgba(18, 40, 22, 0.55)");
+    veil.addColorStop(1, "rgba(10, 24, 14, 0.72)");
+    ctx.fillStyle = veil;
     ctx.fillRect(0, 0, W, H);
 
-    if (adeyImg.complete && adeyImg.naturalWidth) {
-      ctx.save();
-      ctx.globalAlpha = 0.4;
-      ctx.beginPath();
-      ctx.moveTo(0, 820);
-      ctx.bezierCurveTo(180, 700, 360, 900, 560, 760);
-      ctx.bezierCurveTo(760, 640, 940, 860, 1080, 780);
-      ctx.lineTo(1080, H);
-      ctx.lineTo(0, H);
-      ctx.closePath();
-      ctx.clip();
-      ctx.drawImage(adeyImg, 0, 620, W, 780);
-      ctx.restore();
-    }
-
-    ctx.fillStyle = "#2f6b3d";
+    ctx.strokeStyle = "rgba(255, 213, 106, 0.9)";
+    ctx.lineWidth = 7;
     ctx.beginPath();
-    ctx.moveTo(0, 860);
-    ctx.quadraticCurveTo(280, 720, 540, 840);
-    ctx.quadraticCurveTo(820, 700, 1080, 820);
-    ctx.lineTo(1080, H);
-    ctx.lineTo(0, H);
-    ctx.fill();
-
-    ctx.fillStyle = "#3d8a4a";
-    ctx.beginPath();
-    ctx.moveTo(0, 980);
-    ctx.quadraticCurveTo(300, 860, 600, 970);
-    ctx.quadraticCurveTo(860, 880, 1080, 960);
-    ctx.lineTo(1080, H);
-    ctx.lineTo(0, H);
-    ctx.fill();
-
-    if (adeyImg.complete && adeyImg.naturalWidth) {
-      ctx.save();
-      ctx.globalAlpha = 0.55;
-      ctx.globalCompositeOperation = "overlay";
-      ctx.drawImage(adeyImg, -40, 900, 1160, 520);
-      ctx.restore();
-    }
-
-    [[180, 1000, 46], [320, 1080, 38], [860, 1020, 52], [700, 1140, 34], [500, 1060, 42], [960, 1180, 36]].forEach(([x, y, r]) => {
-      drawDaisy(ctx, x, y, r);
-    });
-
-    const addis = nowInAddis();
-    const eth = gregorianToEthiopic(addis.y, addis.m, addis.d);
-    const year = displayYear(eth);
-
-    ctx.strokeStyle = "rgba(255, 213, 106, 0.85)";
-    ctx.lineWidth = 6;
-    ctx.beginPath();
-    ctx.arc(W / 2, 430, 210, 0, Math.PI * 2);
+    ctx.arc(W / 2, 268, 168, 0, Math.PI * 2);
     ctx.stroke();
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.arc(W / 2, 430, 168, 0, Math.PI * 2);
+    ctx.arc(W / 2, 268, 132, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(W / 2, 268, 104, 0, Math.PI * 2);
     ctx.stroke();
 
-    ctx.fillStyle = "#fff8e7";
     ctx.textAlign = "center";
-    ctx.font = "600 42px 'Cormorant Garamond', serif";
-    ctx.fillText("Portal to 2019", W / 2, 160);
-    ctx.font = "600 28px 'Noto Sans Ethiopic', sans-serif";
-    ctx.fillText("እንቁጣጣሽ", W / 2, 210);
-
     ctx.fillStyle = "#ffe9a8";
-    ctx.font = "700 220px 'Cormorant Garamond', serif";
-    ctx.fillText(String(year), W / 2, 510);
+    ctx.font = "600 28px 'Noto Sans Ethiopic', sans-serif";
+    ctx.fillText("እንቁጣጣሽ", W / 2, 118);
+    ctx.font = "700 148px 'Cormorant Garamond', serif";
+    ctx.fillText("2019", W / 2, 328);
 
-    ctx.fillStyle = "#3d2b1f";
-    ctx.font = "600 44px 'Cormorant Garamond', 'Noto Sans Ethiopic', serif";
-    wrapText(ctx, shareText(year, nameInput.value), W / 2, 1220, 920, 52);
+    const from = (fromInput.value || "").trim();
+    const to = (toInput.value || "").trim();
+    ctx.fillStyle = "#fff8e7";
+    ctx.font = "600 36px 'Cormorant Garamond', 'Noto Sans Ethiopic', serif";
+    if (from) ctx.fillText(`ከ ${from}`, W / 2, 470);
+    if (to) ctx.fillText(`ለ ${to}`, W / 2, from ? 518 : 470);
+
+    ctx.fillStyle = "rgba(255, 213, 106, 0.95)";
+    ctx.font = "500 22px Outfit, 'Noto Sans Ethiopic', sans-serif";
+    const relY = from && to ? 562 : from || to ? 518 : 470;
+    ctx.fillText(I18N[lang].rel[who], W / 2, relY);
+
+    ctx.strokeStyle = "rgba(255, 213, 106, 0.45)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(180, relY + 28);
+    ctx.lineTo(900, relY + 28);
+    ctx.stroke();
+
+    const bless = currentBlessing();
+    ctx.fillStyle = "#fff8e7";
+    ctx.font = "700 48px 'Noto Sans Ethiopic', sans-serif";
+    const amLines = wrapText(ctx, bless.am, W / 2, relY + 100, 900, 62);
+    ctx.fillStyle = "rgba(255, 233, 168, 0.92)";
+    ctx.font = "italic 600 32px 'Cormorant Garamond', serif";
+    const enStart = relY + 100 + amLines * 62 + 18;
+    wrapText(ctx, bless.en, W / 2, enStart, 900, 42);
+
+    if (isLoveWho()) {
+      ctx.fillStyle = "#ffe38a";
+      ctx.font = "600 34px 'Noto Sans Ethiopic', sans-serif";
+      ctx.fillText("2019ን አብረን እንግባ", W / 2, 1188);
+      ctx.fillStyle = "#efe2c2";
+      ctx.font = "italic 500 26px 'Cormorant Garamond', serif";
+      ctx.fillText("This year we walk in together", W / 2, 1230);
+    }
+
+    [[140, 1240, 36], [940, 1260, 42], [200, 1300, 28], [880, 1310, 32]].forEach(([x, y, r]) => {
+      drawDaisy(ctx, x, y, r);
+    });
 
     return canvas;
   }
@@ -635,45 +896,40 @@
   async function downloadCard() {
     const canvas = paintShareCard();
     const a = document.createElement("a");
-    a.download = "portal-to-2019.png";
+    a.download = "enkutatash-2019.png";
     a.href = canvas.toDataURL("image/png");
     a.click();
   }
 
-  async function webShare() {
-    const canvas = paintShareCard();
-    const line = shareLine.textContent;
-    try {
-      const blob = await new Promise((res) => canvas.toBlob(res, "image/png"));
-      const file = new File([blob], "portal-to-2019.png", { type: "image/png" });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ text: line, files: [file], title: "Portal to 2019" });
-        return;
-      }
-      if (navigator.share) {
-        await navigator.share({ text: line, title: "Portal to 2019" });
-        return;
-      }
-    } catch (e) {
-      if (e && e.name === "AbortError") return;
-    }
-    await copyLine();
+  function openShare(url) {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function shareTelegram() {
+    const { line, url } = composeShare();
+    const u = new URL("https://t.me/share/url");
+    u.searchParams.set("url", url || line);
+    u.searchParams.set("text", line);
+    openShare(u.toString());
+  }
+
+  function shareX() {
+    const { full } = composeShare();
+    const u = new URL("https://twitter.com/intent/tweet");
+    u.searchParams.set("text", full);
+    openShare(u.toString());
   }
 
   async function copyLine() {
-    const line = shareLine.textContent;
+    const { full } = composeShare();
     try {
-      await navigator.clipboard.writeText(line);
+      await navigator.clipboard.writeText(full);
     } catch (e) {
       /* ignore */
     }
-    const prev = copyBtnLabel();
+    const prev = t("copy");
     $("copyBtn").textContent = t("copied");
     setTimeout(() => { $("copyBtn").textContent = prev; }, 1400);
-  }
-
-  function copyBtnLabel() {
-    return t("copy");
   }
 
   /* ---- events ---- */
@@ -704,15 +960,31 @@
     updateClock();
   });
 
-  nameInput.value = localStorage.getItem(LS.name) || "";
-  nameInput.addEventListener("input", () => {
-    localStorage.setItem(LS.name, nameInput.value);
-    updateClock();
+  fromInput.value = localStorage.getItem(LS.name) || "";
+  toInput.value = localStorage.getItem(LS.to) || "";
+  fromInput.addEventListener("input", () => {
+    localStorage.setItem(LS.name, fromInput.value);
+    updateSharePreview();
   });
+  toInput.addEventListener("input", () => {
+    localStorage.setItem(LS.to, toInput.value);
+    updateSharePreview();
+  });
+  bdayName.addEventListener("input", renderBorn);
   bdayInput.addEventListener("input", renderBorn);
 
+  $("endingRow").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-end]");
+    if (!btn) return;
+    ending = btn.getAttribute("data-end");
+    localStorage.setItem(LS.end, ending);
+    renderBlessings();
+    updateSharePreview();
+  });
+
   $("downloadBtn").addEventListener("click", downloadCard);
-  $("webShareBtn").addEventListener("click", webShare);
+  $("telegramBtn").addEventListener("click", shareTelegram);
+  $("xBtn").addEventListener("click", shareX);
   $("copyBtn").addEventListener("click", copyLine);
 
   window.addEventListener("resize", () => {

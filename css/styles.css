@@ -391,15 +391,50 @@ body.ethio .panel {
   font-weight: 600;
 }
 
-.whisper {
-  margin: 0 0 14px;
-  color: var(--muted);
-  font-size: 0.88rem;
+.field-label {
+  margin: 14px 0 8px;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
 }
 
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.chip-row .chip {
+  font-size: 11px;
+  padding: 8px 11px;
+}
+
+.name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 4px;
+}
+
+.field span {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.field input,
 .inscription input {
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 0;
   padding: 12px 12px;
   color: var(--ink);
   background: rgba(255, 255, 255, 0.04);
@@ -409,9 +444,92 @@ body.ethio .panel {
   font: 400 1rem Outfit, "Noto Sans Ethiopic", sans-serif;
 }
 
+.field input:focus,
 .inscription input:focus {
   outline: none;
   border-bottom-color: var(--gold);
+}
+
+.bless-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.bless-card {
+  text-align: left;
+  padding: 12px 10px;
+  border-radius: 14px;
+  color: var(--ink);
+  background: rgba(7, 6, 15, 0.35);
+  border: 1px solid rgba(232, 195, 106, 0.18);
+  cursor: pointer;
+  font: inherit;
+}
+
+body.ethio .bless-card {
+  background: rgba(12, 36, 20, 0.38);
+}
+
+.bless-card[aria-pressed="true"] {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(232, 195, 106, 0.28), rgba(184, 134, 42, 0.14));
+}
+
+.bless-card strong {
+  display: block;
+  font-family: "Noto Sans Ethiopic", sans-serif;
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.bless-card span {
+  display: block;
+  margin-top: 5px;
+  font-size: 0.68rem;
+  line-height: 1.35;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+.together {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  text-align: center;
+  border: 1px dashed rgba(232, 195, 106, 0.35);
+  border-radius: 12px;
+}
+
+.together strong {
+  display: block;
+  font-family: "Noto Sans Ethiopic", sans-serif;
+  font-size: 1rem;
+}
+
+.together span {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.panel.compact {
+  padding: 14px 14px 12px;
+  opacity: 0.9;
+}
+
+.panel.compact h2 {
+  font-size: 1.08rem;
+}
+
+.panel.compact .whisper {
+  font-size: 0.8rem;
+}
+
+.inscription.compact input {
+  margin-bottom: 8px;
 }
 
 .poem {

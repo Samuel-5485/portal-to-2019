@@ -66,25 +66,55 @@
 
     <button type="button" id="previewBtn" class="ritual" data-i18n="preview">Preview the crossing</button>
 
-    <section class="panel inscription" aria-labelledby="bornTitle">
-      <h2 id="bornTitle" data-i18n="bornTitle">You were born when the year was younger</h2>
-      <p class="whisper" data-i18n="bornHint">A name, a Gregorian birthday. The portal answers in two calendars.</p>
-      <label class="sr-only" for="nameInput" data-i18n="nameLabel">Name</label>
-      <input id="nameInput" type="text" autocomplete="given-name" maxlength="40" data-i18n-placeholder="namePh" placeholder="Your name" />
+    <section class="panel bless-panel" aria-labelledby="shareTitle">
+      <h2 id="shareTitle" data-i18n="shareTitle">Send Enkutatash</h2>
+      <p class="whisper" data-i18n="shareHint">The gold is for someone. Choose who, then a blessing.</p>
+
+      <p class="field-label" data-i18n="whoLabel">For</p>
+      <div class="chip-row" id="whoRow" role="group"></div>
+
+      <div class="name-row">
+        <label class="field">
+          <span data-i18n="fromLabel">From</span>
+          <input id="fromInput" type="text" autocomplete="name" maxlength="40" placeholder="Your name" />
+        </label>
+        <label class="field">
+          <span data-i18n="toLabel">To</span>
+          <input id="toInput" type="text" maxlength="40" placeholder="their name" />
+        </label>
+      </div>
+
+      <p class="field-label" data-i18n="endingLabel">Amharic ending</p>
+      <div class="chip-row ending-row" id="endingRow" role="group">
+        <button type="button" class="chip" data-end="hu" aria-pressed="true">ህ</button>
+        <button type="button" class="chip" data-end="sh" aria-pressed="false">ሽ</button>
+        <button type="button" class="chip" data-end="pl" aria-pressed="false">አችሁ</button>
+      </div>
+
+      <div class="bless-grid" id="blessGrid" role="listbox" aria-label="Blessings"></div>
+      <p id="togetherLine" class="together" hidden>
+        <strong>2019ን አብረን እንግባ</strong>
+        <span>This year we walk in together</span>
+      </p>
+
+      <p id="shareLine" class="share-line"></p>
+      <div class="share-actions">
+        <button type="button" id="downloadBtn" class="chip chip-gold" data-i18n="download">Download card</button>
+        <button type="button" id="telegramBtn" class="chip" data-i18n="telegram">Telegram</button>
+        <button type="button" id="xBtn" class="chip" data-i18n="twitter">X</button>
+        <button type="button" id="copyBtn" class="chip" data-i18n="copy">Copy</button>
+      </div>
+      <canvas id="shareCard" width="1080" height="1350" hidden></canvas>
+    </section>
+
+    <section class="panel inscription compact" aria-labelledby="bornTitle">
+      <h2 id="bornTitle" data-i18n="bornTitle">The other calendar, quietly</h2>
+      <p class="whisper" data-i18n="bornHint">A small converter. It does not make the card.</p>
+      <label class="sr-only" for="bdayName" data-i18n="nameLabel">Name</label>
+      <input id="bdayName" type="text" autocomplete="given-name" maxlength="40" data-i18n-placeholder="namePh" placeholder="Name" />
       <label class="sr-only" for="bdayInput" data-i18n="bdayLabel">Gregorian birthday</label>
       <input id="bdayInput" type="date" />
       <p id="bornPoem" class="poem" hidden></p>
-    </section>
-
-    <section class="panel share-panel" aria-labelledby="shareTitle">
-      <h2 id="shareTitle" data-i18n="shareTitle">A line for the other calendar</h2>
-      <p id="shareLine" class="share-line"></p>
-      <div class="share-actions">
-        <button type="button" id="downloadBtn" class="chip" data-i18n="download">Download card</button>
-        <button type="button" id="webShareBtn" class="chip" data-i18n="share">Share</button>
-        <button type="button" id="copyBtn" class="chip" data-i18n="copy">Copy line</button>
-      </div>
-      <canvas id="shareCard" width="1080" height="1350" hidden></canvas>
     </section>
 
     <footer class="foot">
